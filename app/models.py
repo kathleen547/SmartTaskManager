@@ -2,7 +2,7 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text
 from flask_login import UserMixin
-from .extensions import db
+from .extensions import db, login_manager
 
 
 class User(UserMixin, db.Model):
@@ -54,5 +54,10 @@ class Task(db.Model):
     def __repr__(self) -> str:
         return f"<Task id={self.id} title={self.title} status={self.status}>"
 
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
 
 

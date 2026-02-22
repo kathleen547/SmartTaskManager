@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from config import Config
-from .extensions import db
+from .extensions import db, login_manager
 
 
 def create_app():
@@ -12,6 +12,8 @@ def create_app():
 
     # Database initialization
     db.init_app(app)
+
+    login_manager.init_app(app)
 
     from .routes import main
     app.register_blueprint(main)
