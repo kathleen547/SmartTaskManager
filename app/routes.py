@@ -17,14 +17,14 @@ def home_login():
         if checked_user is not None:
             if check_password_hash(checked_user.password, password):
                 login_user(checked_user)
-                return redirect("/dashboard")
+                return redirect(url_for('main.get_content'))
             else:
                 flash(message="Incorrect password, try again")
                 return redirect(url_for('main.home_login'))
         else:
             flash(message="There's no such user. Please register")
             return redirect(url_for('main.home_login'))
-    return render_template("login.html", form=form, current_user=current_user)
+    return render_template("index.html", form=form, current_user=current_user)
 
 
 
@@ -38,14 +38,14 @@ def register():
         new_user_hashed_password = generate_password_hash(new_user_password, method='pbkdf2', salt_length=8)
         checked_user = db.session.execute(db.select(User).where(User.email == new_user_email)).scalar()
         if checked_user is not None:
-            flash(message="You,ve already signed up with that email. Log In instead")
+            flash(message="You've already signed up with that email. Log In instead")
             return redirect(url_for('main.home_login'))
         else:
             new_user = User(name=new_user_name, email=new_user_email, password=new_user_hashed_password)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("main.get_content"))
     return render_template("register.html", form=form, current_user=current_user)
 
 
@@ -56,3 +56,7 @@ def logout():
     logout_user()
     return redirect(url_for("main.home_login"))
 
+
+@main.route('/dashboard')
+def get_content():
+    return render_template("dashboard.html", current_user=current_user)

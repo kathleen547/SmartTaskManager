@@ -1,0 +1,77 @@
+/* Global theme colors */
+:root {
+  --stm-bg: #222831;
+  --stm-card-bg: #31363F;
+  --stm-accent: #76ABAE;
+  --stm-accent-alt: #910A67;
+  --stm-text-light: #EEEEEE;
+  --stm-label-muted: #31363F;
+}
+
+body {
+  background-color: var(--stm-bg);
+}
+
+/* Layout helpers */
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Card / box containers */
+#box,
+#box1 {
+  background-color: var(--stm-card-bg);
+}
+
+#box1 {
+  border-color: var(--stm-accent-alt);
+}
+
+/* Typography */
+#title1,
+#title2,
+#title3,
+#footer-title {
+  color: var(--stm-accent);
+}
+
+.info {
+  color: var(--stm-text-light);
+}
+
+.flash {
+    color: var(--stm-accent-alt);
+}
+.form-label-muted {
+  color: var(--stm-label-muted);
+}
+
+/* Form controls */
+.form-floating {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  background-color: var(--stm-bg);
+  border-color: var(--stm-bg);
+}
+
+/* Buttons */
+.btn-customed,
+.btn-register {
+  background-color: var(--stm-accent);
+  color: var(--stm-bg);
+}
+
+.btn-customed:hover,
+.btn-register:hover {
+  background-color: var(--stm-text-light);
+}
+
+.btn-register {
+  margin-top: 20px;
+  height: 60px;
+}

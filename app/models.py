@@ -48,8 +48,9 @@ class Task(db.Model):
     priority: Mapped[str] = mapped_column(String(100), nullable=False, default='medium')
     due_date: Mapped[str] = mapped_column(String(250), nullable=False)
     project_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("projects.id"), nullable=False)
+    project: Mapped["Project"] = relationship("Project", back_populates="tasks")
     assigned_user_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"), nullable=True)
-    owner: Mapped["User"] = relationship("User", back_populates="assigned_asks")
+    owner: Mapped["User"] = relationship("User", back_populates="assigned_tasks")
 
     def __repr__(self) -> str:
         return f"<Task id={self.id} title={self.title} status={self.status}>"

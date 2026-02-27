@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smart Task Manager</title>
+        {% block styles %}
+        <!-- Load Bootstrap-Flask CSS here -->
+        {{ bootstrap.load_css() }}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="flex-container">
+            <div class="col-md-10 mx-auto col-lg-5">
+            <div class="p-4 p-md-5 rounded-3" id="box">
+            <form class="box" action="{{ url_for('main.register') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#76ABAE" class="bi bi-check2-square" viewBox="0 0 16 16">
+                <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z"/>
+                <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0"/>
+                </svg>
+                <h1 class="h3 mb-3 fw-normal" id="title3">Registration form</h1>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages: %}
+                    {% for message in messages: %}
+                    <p class="flash">{{ message }}</p>
+                    {% endfor%}
+                    {% endif %}
+                    {% endwith %}
+                <div class="form-floating">
+                     {{ form.name.label(class="form-label-muted") }}
+                    {{ form.name(class="form-control") }}
+                </div>
+                     <div class="form-floating">
+                         {{ form.email.label(class="form-label-muted") }}
+                         {{ form.email(class="form-control") }}
+                     </div>
+                    <div class="form-floating">
+                        {{ form.password.label(class="form-label-muted") }}
+                        {{ form.password(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-register w-100 py-2") }}
+                    <p class="mt-5 mb-3 text-body-secondary">© 2026, Smart Task Manager</p> </form>
+                    </div></div>
+        </div>
+    </body>
+    </html>
