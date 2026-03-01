@@ -1,10 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
-<body>
-<h1> Dashboard </h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="main">
+        <div class="greeting">
+            <h1>Welcome back</h1>
+ </div>
+ <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn me-md-2" type="button">Create New Task</button>
+  <button class="btn" type="button">Create New Project</button>
+</div>
+
+<div class="card">
+    <div class="card-body" id="first">
+        <div class="number">10</div>
+         <div class="title">Total Tasks</div>
+    </div>
+    <div class="card-body" id="second">
+        <div class="number">1</div>
+        <div class="title">In Progress Tasks</div>
+    </div>
+    <div class="card-body" id="third">
+        <div class="number">2</div>
+        <div class="title">Completed Tasks</div>
+    </div>
+    <div class="card-body" id="last">
+        <div class="number">3</div>
+        <div class="title">Overdue Tasks</div>
+    </div>
+</div>
+
+    <div class="tableContent">
+    <h3>Tasks due today</h3>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">Project</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr>
+      <th scope="row">1</th>
+      <td>Task1</td>
+      <td>Project1</td>
+      <td>High</td>
+      <td>To Do</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Task2</td>
+      <td>Project1</td>
+      <td>Low</td>
+      <td>To Do</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Task3</td>
+      <td>Project2</td>
+      <td>Medium</td>
+      <td>In Progress</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+{% endblock %}
