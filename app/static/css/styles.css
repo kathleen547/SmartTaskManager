@@ -177,3 +177,37 @@ font-weight: bold;
 .tableContent{
 margin-top: 60px;
 }
+
+ .btns{
+        display: flex;
+        justify-content: flex-end;
+       }
+
+       .btnA,.btnB{
+            width: 50px;
+            background-color: #EEEEEE;
+            border-color: #222831;
+            border-width: 2px;
+            margin-top: 10px;
+        }
+
+        .btnA:hover,
+        .btnB:hover{
+            background-color:#76ABAE;
+        }
+
+
+/* Create Project Form */
+        .flex-container1{
+            width: 600px;
+
+        }
+        .btn2{
+position:absolute;
+background-color: var(--stm-accent);
+color: var(--stm-bg);
+}
+
+.btn2:hover{
+background-color: var(--stm-text-light);
+}

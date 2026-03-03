@@ -1,9 +1,10 @@
 from flask import Blueprint, request, redirect, url_for, render_template, flash
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, CreateProject, CreateTask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
 from .extensions import db
-from .models import User
+from .models import User, Task, Project
+from sqlalchemy import func
 
 main = Blueprint('main', __name__)
 
@@ -59,4 +60,64 @@ def logout():
 
 @main.route('/dashboard')
 def get_content():
-    return render_template("dashboard.html", current_user=current_user)
+    tasks_to_filter = db.select(Task).where(Task.assigned_user_id == current_user.id and Task.priority == 'todo')
+    todo_number = db.session.scalar(db.select(func.count()).select_from(tasks_to_filter))
+
+    to_filter = db.select(Project).where(Project.owner_id == current_user.id)
+    project_number = db.session.scalar(db.select(func.count()).select_from(to_filter))
+    return render_template("dashboard.html", current_user=current_user, data=project_number, data1=todo_number)
+
+
+@main.route('/new-project', methods=["GET", "POST"])
+def add_new_project():
+    form = CreateProject()
+    new_id=current_user.id
+    if form.validate_on_submit():
+        new_project = Project(
+            title=form.title.data,
+            description=form.description.data,
+            owner_id= new_id
+        )
+        db.session.add(new_project)
+        db.session.commit()
+        return redirect(url_for('main.get_all_projects'))
+    return render_template("make-project.html", form=form, current_user=current_user)
+
+
+@main.route('/projects', methods=["GET"])
+def get_all_projects():
+    result = db.session.execute(db.select(Project).where(Project.owner_id == current_user.id))
+    projects = result.scalars().all()
+    return render_template("projects.html", projects= projects, current_user=current_user)
+
+
+@main.route('/new-task', methods=["GET", "POST"])
+def add_new_task():
+    form = CreateTask()
+    result = db.session.execute(db.select(Project).where(Project.owner_id == current_user.id))
+    projects = result.scalars().all()
+    form.project_id.choices = [p.id for p in projects]
+    if form.validate_on_submit():
+        task_user_id = current_user.id
+
+        new_task = Task(
+            title= form.title.data,
+            description= form.description.data,
+            status= form.status.data,
+            priority= form.priority.data,
+            due_date= form.due_date.data,
+            project_id=form.project_id.data,
+            assigned_user_id= task_user_id
+        )
+        db.session.add(new_task)
+        db.session.commit()
+        return redirect(url_for('main.get_all_tasks'))
+    return render_template("make-task.html", form=form, current_user=current_user)
+
+
+@main.route('/my-tasks', methods=["GET"])
+def get_all_tasks():
+    result = db.session.execute(db.select(Task).where(Task.assigned_user_id == current_user.id))
+    tasks = result.scalars().all()
+    return render_template("my-tasks.html", tasks=tasks, current_user=current_user)
+

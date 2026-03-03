@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<div class="main">
+ <div class="tableContent">
+    <h3>Your Projects</h3>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Tasks</th>
+    </tr>
+  </thead>
+
+  <tbody class="table-group-divider">
+{% for project in projects %}
+    <tr>
+
+      <td>{{ project.id }}</td>
+        <td>{{ project.title }}</td>
+        <td>{{ project.description }}</td>
+        <td>{{ project.owner }}</td>
+        <td>{{ project.tasks }}</td>
+
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}New Project{% endblock %}
+
+{% block content %}
+<div class="main">
+  <div class="flex-container2">
+            <h1>New Task</h1>
+       <form class="box" action="{{ url_for('main.add_new_task') }}" method="POST">
+           {{ form.hidden_tag() }}
+           <div class="field">
+               {{ form.title.label(class="form-label") }}
+               {{ form.title(class="form-control") }}
+           </div>
+           <div class="field">
+               {{ form.description.label(class="form-label") }}
+               {{ form.description(class="form-control") }}
+           </div>
+           <div class="field">
+               {{ form.status.label(class="form-label") }}
+               {{ form.status(class="form-control") }}
+           </div>
+           <div class="field">
+               {{ form.priority.label(class="form-label") }}
+               {{ form.priority(class="form-control") }}
+           </div>
+           <div class="field">
+               {{ form.due_date.label(class="form-label") }}
+               {{ form.due_date(class="form-control") }}
+           </div>
+           <div class="field">
+               {{ form.project_id(class="form-label") }}
+               {{ form.project_id(class="form-control") }}
+           </div>
+
+           <div class="field">
+               {{ form.submit(class="btn btn-primary btn2 mb-3") }}
+           </div>
+
+       </form>
+
+
+
+  </div>
+
+</div>
+
+{% endblock %}

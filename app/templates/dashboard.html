@@ -5,21 +5,23 @@
 
 <div class="main">
         <div class="greeting">
-            <h1>Welcome back</h1>
+            <h1>Welcome back {{ current_user.name }}</h1>
  </div>
- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn me-md-2" type="button">Create New Task</button>
-  <button class="btn" type="button">Create New Project</button>
+ <div class="btns">
+<div class="btn-group-vertical">
+    <a class="btn btnA" href="{{ url_for('main.add_new_task') }}">Add Task</a>
+<a class="btn btnB" href="{{ url_for('main.add_new_project') }}"> Create Project</a>
+</div>
 </div>
 
 <div class="card">
     <div class="card-body" id="first">
-        <div class="number">10</div>
-         <div class="title">Total Tasks</div>
+        <div class="number">{{ data }}</div>
+         <div class="title">Total Projects</div>
     </div>
     <div class="card-body" id="second">
-        <div class="number">1</div>
-        <div class="title">In Progress Tasks</div>
+        <div class="number">{{ data1 }}</div>
+        <div class="title">To Do Tasks</div>
     </div>
     <div class="card-body" id="third">
         <div class="number">2</div>
