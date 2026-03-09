@@ -20,8 +20,8 @@
 {% for project in projects %}
     <tr>
 
-      <td>{{ project.id }}</td>
-        <td>{{ project.title }}</td>
+      <td>{{ loop.index }}</td>
+        <td><a href="{{ url_for('main.show_project', project_id=project.id) }}">{{ project.title }}</a></td>
         <td>{{ project.description }}</td>
         <td>{{ project.owner }}</td>
         <td>{{ project.tasks }}</td>

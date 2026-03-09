@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Project{% endblock %}
+
+{% block content %}
+<div class="main">
+<div class="project-content">
+    <div class="project-header">
+        <div class="project-header-left">
+        <h2 class="project-title">{{ project.title }}</h2>
+        {{ project.description }}
+        </div>
+        <div class="project-header-right">
+        <a class="btn add-task-btn">Add Task</a>
+        <a class="btn edit-project-btn">Edit Project</a>
+        </div>
+    </div>
+    <div class="project-summary">
+        <div class="summary-cards-row">
+            <div class="summary-card" id="summary1">
+                <div class="card-label">Total Tasks</div>
+                <div class="specific-number">{{ data1 }}</div>
+            </div>
+            <div class="summary-card" id="summary2">
+                <div class="card-label">Todo Tasks</div>
+                <div class="specific-number">{{ data2 }}</div>
+            </div>
+            <div class="summary-card" id="summary3">
+                <div class="card-label">In Progress Tasks</div>
+                <div class="specific-number">{{ data3 }}</div>
+            </div>
+            <div class="summary-card" id="summary4">
+                <div class="card-label">Completed Tasks</div>
+                <div class="specific-number">{{ data4 }}</div>
+            </div>
+            <div class="summary-card" id="summary5">
+                <div class="card-label">Overdue Tasks</div>
+                <div class="specific-number">{{ data5 }}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="project-tasks">
+        <table class="table">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Task</th>
+          <th scope="col">Task Description</th>
+          <th scope="col">Status</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for task in project.tasks %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.status }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.owner.name }}</td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+

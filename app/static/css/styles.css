@@ -211,3 +211,83 @@ color: var(--stm-bg);
 .btn2:hover{
 background-color: var(--stm-text-light);
 }
+
+/* Project View */
+.project-content{
+display: block;
+flex: 1;
+padding: 25px;
+}
+
+.project-header{
+display:flex;
+flex-direction:row;
+justify-content: space-between;
+align-items:center;
+margin-bottom: 25px;
+}
+
+.project-title{
+color:var(--stm-accent);
+}
+
+.project-header-right{
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+background-color:var(--stm-accent);
+}
+
+.add-task-btn{
+background-color: var(--stm-text-light);
+}
+
+.edit-project-btn{
+background-color: var(--stm-accent);
+}
+
+.specific-number{
+font-size: 35px;
+}
+
+.summary-cards-row{
+display:flex;
+flex-direction:row;
+justify-content:space-between;
+}
+
+.summary-card{
+width: 200px;
+height: 100px;
+background-color:var(--stm-text-light);
+border-radius: 10px;
+border-style:solid;
+border-color:var(--stm-bg);
+color: var(--stm-bg);
+gap: 5px;
+padding: 15px;
+padding-top: 0px;
+text-align: center;
+margin-bottom: 25px;
+}
+
+#summary1{
+border-left: 20px solid #003399;
+}
+
+#summary2{
+border-left: 20px solid gray;
+}
+
+#summary3{
+border-left: 20px solid orange;
+}
+
+#summary4{
+border-left: 20px solid green;
+}
+
+#summary5{
+border-left: 20px solid red;
+}
+

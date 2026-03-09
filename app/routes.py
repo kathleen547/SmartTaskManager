@@ -5,6 +5,7 @@ from flask_login import login_user, current_user, login_required, logout_user
 from .extensions import db
 from .models import User, Task, Project
 from sqlalchemy import func
+from datetime import date
 
 main = Blueprint('main', __name__)
 
@@ -55,7 +56,7 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.home_login"))
+    return redirect(url_for('main.home_login'))
 
 
 @main.route('/dashboard')
@@ -99,7 +100,6 @@ def add_new_task():
     form.project_id.choices = [p.id for p in projects]
     if form.validate_on_submit():
         task_user_id = current_user.id
-
         new_task = Task(
             title= form.title.data,
             description= form.description.data,
@@ -120,4 +120,41 @@ def get_all_tasks():
     result = db.session.execute(db.select(Task).where(Task.assigned_user_id == current_user.id))
     tasks = result.scalars().all()
     return render_template("my-tasks.html", tasks=tasks, current_user=current_user)
+
+
+@main.route("/project/<int:project_id>", methods=["GET","POST"])
+def show_project(project_id):
+    requested_project = db.get_or_404(Project, project_id)
+    total = db.session.scalar(
+        db.select(func.count())
+        .select_from(Task)
+        .where(Task.project_id == project_id)
+    )
+    todo = db.session.scalar(
+        db.select(func.count())
+        .select_from(Task)
+        .where(Task.project_id == project_id, Task.status == "todo")
+    )
+    in_progress = db.session.scalar(
+        db.select(func.count())
+        .select_from(Task)
+        .where(Task.project_id == project_id, Task.status == "in_progress")
+    )
+    completed = db.session.scalar(
+        db.select(func.count())
+        .select_from(Task)
+        .where(Task.project_id == project_id, Task.status == "done")
+    )
+    overdue = db.session.scalar(
+        db.select(func.count())
+        .select_from(Task)
+        .where(
+            Task.project_id == project_id,
+            Task.due_date < date.today(),
+            Task.status != "done"
+        )
+    )
+    return render_template("project.html", project=requested_project, data1=total, data2=todo, data3=in_progress, data4=completed, data5=overdue, current_user=current_user)
+
+
 

@@ -23,7 +23,7 @@
         <li> <a href="{{ url_for('main.get_all_tasks') }}" class="nav-link">My Tasks</a> </li>
           <li> <a href="{{ url_for('main.get_all_projects') }}" class="nav-link">Projects</a> </li> </ul>
       <div class="exit">
-      <button class="btn btn-primary btn1">Logout</button>
+      <a class="btn btn-primary btn1" href="{{ url_for('main.logout') }}">Logout</a>
       </div>
     </div>
   {% block content %}{% endblock %}
