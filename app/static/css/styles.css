@@ -291,3 +291,83 @@ border-left: 20px solid green;
 border-left: 20px solid red;
 }
 
+/* Table */
+
+.project-tasks{
+flex:1;
+}
+
+/* Dropdowns */
+.filter-content{
+display:flex;
+flex-direction:row;
+justify-content: space-between;
+}
+
+.filters{
+display:flex;
+flex-direction: row;
+justify-content: flex-end;
+}
+
+.dropbtn{
+  background-color: var(--stm-text-light);
+  color: black;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 80px;
+  height: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: var(--stm-accent);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--stm-text-light);
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: var(--stm-accent)}
+
+.show {display:block;}
+
+
+#project-table{
+width: 100%;
+margin-top: 10px;
+}
+
+
+#project-table tr.header{
+background-color: var(--stm-text-light);
+color: var(--stm-bg);
+height: 50px;
+font-size: 14px;
+}
+
+#project-table tr{
+background-color: var(--stm-accent);
+height: 40px;
+font-size: 18px;
+}
