@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
 from .extensions import db
 from .models import User, Task, Project
-from sqlalchemy import func
+from sqlalchemy import func, case, or_
 from datetime import date
 
 main = Blueprint('main', __name__)
@@ -66,7 +66,28 @@ def get_content():
 
     to_filter = db.select(Project).where(Project.owner_id == current_user.id)
     project_number = db.session.scalar(db.select(func.count()).select_from(to_filter))
-    return render_template("dashboard.html", current_user=current_user, data=project_number, data1=todo_number)
+
+    today = date.today()
+    priority_order = case(
+        ((Task.due_date < today) & (Task.status != "done"), 1),
+        ((Task.due_date == today) & (Task.status != "done"), 2),
+        (Task.status == "in progress", 3),
+        else_=4
+    )
+    task_table = db.session.scalars(
+        db.select(Task)
+        .where(
+            Task.assigned_user_id == current_user.id,
+            or_(
+                ((Task.due_date < today) & (Task.status != "done")),
+                ((Task.due_date == today) & (Task.status != "done")),
+                (Task.status == "in progress")
+            )
+        )
+        .order_by(priority_order, Task.due_date.asc())
+        .limit(10)
+    ).all()
+    return render_template("dashboard.html", current_user=current_user, data=project_number, data1=todo_number, dashboard_table=task_table)
 
 
 @main.route('/new-project', methods=["GET", "POST"])
@@ -157,4 +178,11 @@ def show_project(project_id):
     return render_template("project.html", project=requested_project, data1=total, data2=todo, data3=in_progress, data4=completed, data5=overdue, current_user=current_user)
 
 
+@main.route("/delete/<int:task_id>")
+def delete_task(task_id):
+    task_to_delete = db.get_or_404(Task, task_id)
+    project_id = task_to_delete.project_id
+    db.session.delete(task_to_delete)
+    db.session.commit()
+    return redirect(url_for('main.show_project', project_id=project_id))
 

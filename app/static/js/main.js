@@ -9,3 +9,7 @@ function func1() {
 function func2() {
   document.getElementById("status-dropdown").classList.toggle("show");
 }
+
+function confirmDelete(){
+    return confirm("Are you sure to delete this task?");
+}

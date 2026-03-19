@@ -84,7 +84,7 @@
             <td>{{ task.priority }}</td>
             <td>{{ task.due_date }}</td>
             <td>{{ task.owner.name }}</td>
-            <td>View/Edit/Delete</td>
+            <td>View/Edit/<a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()">🗑</a></td>
         </tr>
     {% endfor %}
       </tbody>
