@@ -371,3 +371,10 @@ background-color: var(--stm-accent);
 height: 40px;
 font-size: 18px;
 }
+
+#noResultsMessage{
+display: none;
+text-align: center;
+padding: 20px;
+color: var(--stm-accent);
+}
