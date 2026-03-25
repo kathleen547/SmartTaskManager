@@ -41,27 +41,101 @@ let task = {
 data.push(task);
 });
 
-function searchItems() {
-    let input = document
+// dropdown
+function setupDropdown(buttonId, dropdownId) {
+    const button = document.getElementById(buttonId);
+    const dropdown = document.getElementById(dropdownId);
+    const options = dropdown.querySelectorAll("a");
+
+    button.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        document.querySelectorAll(".dropdown-content").forEach((menu) => {
+            if (menu !== dropdown) {
+                menu.classList.remove("show");
+            }
+    });
+
+    dropdown.classList.toggle("show");
+});
+
+    options.forEach((option) => {
+        option.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const selectedValue = option.dataset.value;
+            const selectedText = option.textContent.trim();
+
+            button.dataset.value = selectedValue;
+            button.textContent = selectedText;
+
+            dropdown.classList.remove("show");
+
+            applyFilters();
+        });
+    });
+
+    return { button, dropdown };
+}
+
+const statusUI = setupDropdown("statusFilter", "status-dropdown");
+const priorityUI = setupDropdown("priorityFilter", "priority-dropdown");
+
+document.addEventListener("click", (event) => {
+    if (
+        !statusUI.button.contains(event.target) &&
+        !statusUI.dropdown.contains(event.target)
+    ) {
+        statusUI.dropdown.classList.remove("show");
+    }
+
+    if (
+        !priorityUI.button.contains(event.target) &&
+        !priorityUI.dropdown.contains(event.target)
+    ) {
+        priorityUI.dropdown.classList.remove("show");
+    }
+});
+
+
+function applyFilters() {
+    const searchValue = document
         .getElementById("searchInput")
         .value
         .trim()
         .toLowerCase();
 
-    let hasVisibleItems = false;
+    const statusValue = document
+        .getElementById("statusFilter")
+        .dataset.value
+        .trim()
+        .toLowerCase();
 
-    data.forEach((e) => {
-        if (e.Task.includes(input)) {
-            e.rowElement.style.display = "";
-            hasVisibleItems = true;
-        } else {
-            e.rowElement.style.display = "none";
-        }
-    });
+    const priorityValue = document
+        .getElementById("priorityFilter")
+        .dataset.value
+        .trim()
+        .toLowerCase();
 
     const message = document.getElementById("noResultsMessage");
 
-    if (hasVisibleItems || input === "") {
+    let hasVisibleItems = false;
+
+    data.forEach((task) => {
+        const matchesSearch = task.Task.includes(searchValue);
+        const matchesStatus = statusValue === "all" || task.Status === statusValue;
+        const matchesPriority = priorityValue === "all" || task.Priority === priorityValue;
+
+        if (matchesSearch && matchesStatus && matchesPriority) {
+            task.rowElement.style.display = "";
+            hasVisibleItems = true;
+        } else {
+            task.rowElement.style.display = "none";
+        }
+    });
+
+    if (hasVisibleItems) {
         message.style.display = "none";
     } else {
         message.style.display = "block";

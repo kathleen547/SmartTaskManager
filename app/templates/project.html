@@ -46,21 +46,21 @@
             <div class="filters">
         <input type="search" placeholder="Search by title..." class="filter-task" id="searchInput" onkeyup="searchItems()">
         <div class="filter-dropdown">
-        <button onclick="func2()" class="dropbtn">Status</button>
+        <button type="button" class="dropbtn" data-value="all" id="statusFilter">Status</button>
         <div id="status-dropdown" class="dropdown-content">
-    <a href="#all">All statuses</a>
-    <a href="#todo">Todo</a>
-    <a href="#inprogress">In Progress</a>
-    <a href="#completed">Completed</a>
+    <a href="#" data-value="all">All statuses</a>
+    <a href="#" data-value="todo">Todo</a>
+    <a href="#" data-value="in progress">In Progress</a>
+    <a href="#" data-value="completed">Completed</a>
         </div></div>
 
         <div class="filter-dropdown">
-        <button onclick="func1()" class="dropbtn">Priority</button>
-        <div id="filter-dropdown" class="dropdown-content">
-    <a href="#all-priorities">All priorities</a>
-    <a href="#low">Low</a>
-    <a href="#medium">Medium</a>
-    <a href="#high">High</a>
+        <button type="button" class="dropbtn" id="priorityFilter" data-value="all">Priority</button>
+        <div id="priority-dropdown" class="dropdown-content">
+    <a href="#" data-value="all">All priorities</a>
+    <a href="#" data-value="low">Low</a>
+    <a href="#" data-value="medium">Medium</a>
+    <a href="#" data-value="high">High</a>
         </div></div></div>
 </div>
         <table id="project-table">
