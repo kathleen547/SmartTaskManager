@@ -186,3 +186,17 @@ def delete_task(task_id):
     db.session.commit()
     return redirect(url_for('main.show_project', project_id=project_id))
 
+
+@main.route("/edit-project/<int:project_id>", methods=["GET", "POST"])
+def edit_project(project_id):
+    project = db.get_or_404(Project, project_id)
+    edit_form = CreateProject(
+        title=project.title,
+        description=project.description
+    )
+    if edit_form.validate_on_submit():
+        project.title = edit_form.title.data
+        project.description = edit_form.title.data
+        db.session.commit()
+        return redirect(url_for('main.show_project', project_id=project_id))
+    return render_template('make-project.html', form=edit_form, is_Edit=True, current_user=current_user)

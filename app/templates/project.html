@@ -11,7 +11,7 @@
         </div>
         <div class="project-header-right">
         <a class="btn add-task-btn">Add Task</a>
-        <a class="btn edit-project-btn">Edit Project</a>
+        <a class="btn edit-project-btn" href="{{ url_for('main.edit_project', project_id=project.id) }}">Edit Project</a>
         </div>
     </div>
     <div class="project-summary">

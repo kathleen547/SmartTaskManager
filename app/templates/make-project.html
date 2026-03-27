@@ -4,7 +4,11 @@
 {% block content %}
 <div class="main">
         <div class="flex-container1">
+            {% if is_Edit: %}
+            <h1>Edit project</h1>
+            {% else: %}
             <h1>New project</h1>
+            {% endif %}
         <form class="box" action="{{ url_for('main.add_new_project') }}" method="POST">
             {{ form.hidden_tag() }}
  <div class="mb-3">
