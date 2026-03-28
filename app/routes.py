@@ -136,6 +136,34 @@ def add_new_task():
     return render_template("make-task.html", form=form, current_user=current_user)
 
 
+@main.route('/edit-task/<int:task_id>', methods=["GET", "POST"])
+def edit_task(task_id):
+    task = db.get_or_404(Task, task_id)
+    edit_form = CreateTask(
+        title= task.title,
+        description= task.description,
+        status= task.status,
+        priority= task.priority,
+        due_date=task.due_date,
+        project_id= task.project_id
+    )
+    user_projects = db.session.scalars(
+        db.select(Project).where(Project.owner_id == current_user.id)
+    ).all()
+    edit_form.project_id.choices = [(project.id, project.title) for project in user_projects]
+    edit_form.submit.label.text = "Save Changes"
+    if edit_form.validate_on_submit():
+        task.title = edit_form.title.data
+        task.description = edit_form.description.data
+        task.status = edit_form.status.data
+        task.priority = edit_form.priority.data
+        task.due_date = edit_form.due_date.data
+        task.project_id = edit_form.project_id.data
+        db.session.commit()
+        return redirect(url_for('main.show_project', project_id=task.project_id))
+    return render_template('make-task.html', form=edit_form, is_Edit=True, task=task, current_user=current_user)
+
+
 @main.route('/my-tasks', methods=["GET"])
 def get_all_tasks():
     result = db.session.execute(db.select(Task).where(Task.assigned_user_id == current_user.id))
@@ -194,6 +222,7 @@ def edit_project(project_id):
         title=project.title,
         description=project.description
     )
+    edit_form.submit.label.text = "Save"
     if edit_form.validate_on_submit():
         project.title = edit_form.title.data
         project.description = edit_form.title.data

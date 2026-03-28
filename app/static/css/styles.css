@@ -57,6 +57,7 @@ body {
 .form-control {
   background-color: var(--stm-bg);
   border-color: var(--stm-bg);
+  color: var(--stam-text-light);
 }
 
 /* Buttons */

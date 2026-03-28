@@ -19,7 +19,7 @@ class LoginForm(FlaskForm):
 class CreateProject(FlaskForm):
     title = StringField(label="Title", validators=[DataRequired()])
     description = StringField(label="Description", validators=[DataRequired()])
-    submit = SubmitField("Save")
+    submit = SubmitField("Create Project")
 
 
 class CreateTask(FlaskForm):
