@@ -13,7 +13,7 @@
             {{ form.hidden_tag() }}
  <div class="mb-3">
      {{ form.title.label(class="form-label") }}
-     {{ form.title(class="form-control") }}
+     {{ form.title(class="form-control", id="title-form-control") }}
 </div>
 <div class="mb-3">
     <label class="form-label">Project owner</label>
@@ -21,7 +21,7 @@
 </div>
 <div class="mb-3">
     {{ form.description.label(class="form-label") }}
-     {{ form.description (class="form-control") }}
+     {{ form.description (class="form-control", id="description-form-control") }}
   </div>
   <div class="mb-3">
        {{ form.submit(class="btn btn-primary btn2 mb-3") }}

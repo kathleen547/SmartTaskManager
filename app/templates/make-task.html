@@ -18,27 +18,27 @@
            {{ form.hidden_tag() }}
            <div class="field">
                {{ form.title.label(class="form-label") }}
-               {{ form.title(class="form-control") }}
+               {{ form.title(class="form-control", id="title-field") }}
            </div>
            <div class="field">
                {{ form.description.label(class="form-label") }}
-               {{ form.description(class="form-control") }}
+               {{ form.description(class="form-control", id="description-field") }}
            </div>
            <div class="field">
                {{ form.status.label(class="form-label") }}
-               {{ form.status(class="form-control") }}
+               {{ form.status(class="form-control", id="status-field") }}
            </div>
            <div class="field">
                {{ form.priority.label(class="form-label") }}
-               {{ form.priority(class="form-control") }}
+               {{ form.priority(class="form-control", id="priority-field") }}
            </div>
            <div class="field">
                {{ form.due_date.label(class="form-label") }}
-               {{ form.due_date(class="form-control") }}
+               {{ form.due_date(class="form-control", id="date-field") }}
            </div>
            <div class="field">
                {{ form.project_id(class="form-label") }}
-               {{ form.project_id(class="form-control") }}
+               {{ form.project_id(class="form-control", id="id-field") }}
            </div>
 
            <div class="field">

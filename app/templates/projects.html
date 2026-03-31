@@ -12,7 +12,7 @@
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th scope="col">Owner</th>
-      <th scope="col">Tasks</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
 
@@ -21,10 +21,10 @@
     <tr>
 
       <td>{{ loop.index }}</td>
-        <td><a href="{{ url_for('main.show_project', project_id=project.id) }}">{{ project.title }}</a></td>
+        <td>{{ project.title }}</td>
         <td>{{ project.description }}</td>
-        <td>{{ project.owner }}</td>
-        <td>{{ project.tasks }}</td>
+        <td>{{ project.owner.name }}</td>
+        <td><a href="{{ url_for('main.show_project', project_id=project.id) }}">View</a> </td>
 
     </tr>
 {% endfor %}
