@@ -40,8 +40,8 @@
     <tr>
       <th scope="col">Task</th>
       <th scope="col">Project</th>
-      <th scope="col">Priority</th>
       <th scope="col">Status</th>
+      <th scope="col">Priority</th>
       <th scope="col">Due Date</th>
     </tr>
   </thead>
@@ -50,8 +50,16 @@
     <tr>
       <td>{{ task.title }}</td>
       <td>{{ task.project.title }}</td>
-      <td>{{ task.status }}</td>
-      <td>{{ task.priority }}</td>
+      <td><span class="badge
+    {% if task.status == 'todo' %}badge-todo
+    {% elif task.status == 'in_progress' %}badge-progress
+    {% elif task.status == 'completed' %}badge-completed
+    {% endif %}">{{ task.status|capitalize }}</span></td>
+      <td><span class="badge
+    {% if task.priority == 'low' %}badge-low
+    {% elif task.priority == 'medium' %}badge-medium
+    {% elif task.priority == 'high' %}badge-high
+    {% endif %}">{{ task.priority }}</span></td>
         <td>{{ task.due_date }}</td>
     </tr>
   {% endfor %}

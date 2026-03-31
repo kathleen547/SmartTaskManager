@@ -396,3 +396,41 @@ color: var(--stm-card-bg);
 {
 background-color: var(--stm-text-light);
 }
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.badge-todo {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.badge-progress {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-completed {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-low {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-medium {
+    background-color: #fde68a;
+    color: #92400e;
+}
+
+.badge-high {
+    background-color: #fecaca;
+    color: #991b1b;
+}

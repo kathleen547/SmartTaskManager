@@ -80,8 +80,20 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td class="task-title">{{ task.title }}</td>
-          <td class="task-status">{{ task.status }}</td>
-            <td class="task-priority">{{ task.priority }}</td>
+          <td class="task-status"><span class="badge
+    {% if task.status == 'todo' %}badge-todo
+    {% elif task.status == 'in_progress' %}badge-progress
+    {% elif task.status == 'completed' %}badge-completed
+    {% endif %}">
+    {{ task.status|capitalize}}
+</span></td>
+            <td class="task-priority"><span class="badge
+    {% if task.priority == 'low' %}badge-low
+    {% elif task.priority == 'medium' %}badge-medium
+    {% elif task.priority == 'high' %}badge-high
+    {% endif %}">
+    {{ task.priority }}
+</span></td>
             <td class="task-date">{{ task.due_date }}</td>
             <td class="task-owner">{{ task.owner.name }}</td>
             <td class="task-actions">View/<a href="{{ url_for('main.edit_task', task_id=task.id) }}">Edit/</a><a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()">🗑</a></td>

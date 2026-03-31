@@ -25,8 +25,20 @@
       <td>{{ task.id }}</td>
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
-        <td>{{ task.status }}</td>
-        <td>{{ task.priority }}</td>
+        <td><span class="badge
+    {% if task.status == 'todo' %}badge-todo
+    {% elif task.status == 'in_progress' %}badge-progress
+    {% elif task.status == 'completed' %}badge-completed
+    {% endif %}">
+    {{ task.status|capitalize }}
+</span></td>
+        <td><span class="badge
+    {% if task.priority == 'low' %}badge-low
+    {% elif task.priority == 'medium' %}badge-medium
+    {% elif task.priority == 'high' %}badge-high
+    {% endif %}">
+    {{ task.priority }}
+</span></td>
         <td>{{ task.due_date }}</td>
         <td><a href="{{ url_for('main.edit_task', task_id=task.id) }}">Edit</a><a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()">🗑</a> </td>
 
