@@ -346,7 +346,7 @@ def add_new_task():
         db.select(Project).where(Project.owner_id == current_user.id)
     )
     projects = result.scalars().all()
-    form.project_id.choices = [p.id for p in projects]
+    form.project_id.choices = [(p.id, p.title) for p in projects]
 
     if form.validate_on_submit():
         task_user_id = current_user.id
