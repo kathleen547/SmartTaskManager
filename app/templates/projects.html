@@ -24,7 +24,7 @@
         <td>{{ project.title }}</td>
         <td>{{ project.description }}</td>
         <td>{{ project.owner.name }}</td>
-        <td><a href="{{ url_for('main.show_project', project_id=project.id) }}">View</a> </td>
+        <td class="project-actions"><a href="{{ url_for('main.show_project', project_id=project.id) }}" title="View project">👁</a> </td>
 
     </tr>
 {% endfor %}

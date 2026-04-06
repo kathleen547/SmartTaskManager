@@ -63,7 +63,7 @@
     <a href="#" data-value="high">High</a>
         </div></div></div>
 </div>
-        <table id="project-table">
+        <table id="project-table" class="table table-hover">
     <thead>
         <tr class="header">
           <th scope="col">#</th>
@@ -96,7 +96,7 @@
 </span></td>
             <td class="task-date">{{ task.due_date }}</td>
             <td class="task-owner">{{ task.owner.name }}</td>
-            <td class="task-actions">View/<a href="{{ url_for('main.edit_task', task_id=task.id) }}">Edit/</a><a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()">🗑</a></td>
+            <td class="task-actions"><a href="{{ url_for('main.edit_task', task_id=task.id) }}" class="action-edit" title="Edit task">⚙️</a><a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()" class="action-delete" title="Delete task">🗑</a></td>
         </tr>
     {% endfor %}
       </tbody>

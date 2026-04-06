@@ -40,7 +40,8 @@
     {{ task.priority }}
 </span></td>
         <td>{{ task.due_date }}</td>
-        <td><a href="{{ url_for('main.edit_task', task_id=task.id) }}">Edit</a><a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()">🗑</a> </td>
+        <td class="task-actions"><a href="{{ url_for('main.edit_task', task_id=task.id) }}" class="action-edit" title="Edit task">⚙️</a>
+            <a href="{{ url_for('main.delete_task', task_id=task.id) }}" onclick="return confirmDelete()" class="action-delete" title="Delete task">🗑</a> </td>
 
     </tr>
 {% endfor %}
