@@ -130,13 +130,26 @@ def get_content():
       4. Everything else
     """
     # Count tasks assigned to the user with 'todo' status
-    tasks_to_filter = db.select(Task).where(
+    tasks_todo_to_filter = db.select(Task).where(
         Task.assigned_user_id == current_user.id and Task.priority == 'todo'
     )
     todo_number = db.session.scalar(
-        db.select(func.count()).select_from(tasks_to_filter)
+        db.select(func.count()).select_from(tasks_todo_to_filter)
     )
-
+    # Count tasks assigned to the user with 'done' status
+    tasks_completed_to_filter = db.select(Task).where(
+        Task.assigned_user_id == current_user.id and Task.priority == 'done'
+    )
+    completed_number = db.session.scalar(
+        db.select(func.count()).select_from(tasks_completed_to_filter)
+    )
+    # Count tasks not completed by today
+    tasks_overdue_to_filter = db.select(Task).where(
+        Task.assigned_user_id == current_user.id and Task.due_date < date.today() and Task.priority != 'done'
+    )
+    overdue_number = db.session.scalar(
+        db.select(func.count()).select_from(tasks_overdue_to_filter)
+    )
     # Count projects owned by the current user
     to_filter = db.select(Project).where(Project.owner_id == current_user.id)
     project_number = db.session.scalar(
@@ -173,6 +186,8 @@ def get_content():
         current_user=current_user,
         data=project_number,  # Total projects count
         data1=todo_number,  # Total todo tasks count
+        data2=completed_number, # Total completed tasks count
+        data3=overdue_number, # Total overdue tasks count
         dashboard_table=task_table  # Prioritized task list
     )
 
@@ -339,31 +354,37 @@ def add_new_task():
     POST: Validates the form and saves the new task, assigning it
           to the current user.
     """
-    form = CreateTask()
-
-    # Load current user's projects for the project selector dropdown
-    result = db.session.execute(
+    projects = db.session.scalars(
         db.select(Project).where(Project.owner_id == current_user.id)
-    )
-    projects = result.scalars().all()
-    form.project_id.choices = [(p.id, p.title) for p in projects]
+    ).all()
 
-    if form.validate_on_submit():
-        task_user_id = current_user.id
-        new_task = Task(
-            title=form.title.data,
-            description=form.description.data,
-            status=form.status.data,
-            priority=form.priority.data,
-            due_date=form.due_date.data,
-            project_id=form.project_id.data,
-            assigned_user_id=task_user_id
+    if not projects:
+        return render_template("make-task.html", current_user=current_user, no_projects=True)
+    else:
+        form = CreateTask()
+        # Load current user's projects for the project selector dropdown
+        result = db.session.execute(
+            db.select(Project).where(Project.owner_id == current_user.id)
         )
-        db.session.add(new_task)
-        db.session.commit()
-        return redirect(url_for('main.get_all_tasks'))
+        projects = result.scalars().all()
+        form.project_id.choices = [(p.id, p.title) for p in projects]
 
-    return render_template("make-task.html", form=form, current_user=current_user)
+        if form.validate_on_submit():
+            task_user_id = current_user.id
+            new_task = Task(
+                title=form.title.data,
+                description=form.description.data,
+                status=form.status.data,
+                priority=form.priority.data,
+                due_date=form.due_date.data,
+                project_id=form.project_id.data,
+                assigned_user_id=task_user_id
+            )
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect(url_for('main.get_all_tasks'))
+
+        return render_template("make-task.html", form=form, current_user=current_user)
 
 
 @main.route('/edit-task/<int:task_id>', methods=["GET", "POST"])

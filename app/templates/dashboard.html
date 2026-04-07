@@ -10,7 +10,7 @@
  <div class="btns">
 <div class="btn-group-vertical">
     <a class="btn btnA" href="{{ url_for('main.add_new_task') }}">Add Task</a>
-<a class="btn btnB" href="{{ url_for('main.add_new_project') }}"> Create Project</a>
+<a class="btn btnB" href="{{ url_for('main.add_new_project') }}">Create Project</a>
 </div>
 </div>
 
@@ -24,17 +24,18 @@
         <div class="title">To Do Tasks</div>
     </div>
     <div class="card-body" id="third">
-        <div class="number">2</div>
+        <div class="number">{{ data2 }}</div>
         <div class="title">Completed Tasks</div>
     </div>
     <div class="card-body" id="last">
-        <div class="number">3</div>
+        <div class="number">{{ data3 }}</div>
         <div class="title">Overdue Tasks</div>
     </div>
 </div>
 
     <div class="tableContent">
     <h3>Tasks due today</h3>
+        {% if dashboard_table: %}
     <table class="table table-hover">
   <thead>
     <tr>
@@ -65,6 +66,11 @@
   {% endfor %}
   </tbody>
 </table>
+        {% else %}
+<div class="empty-state">
+    <p class="empty-title">No tasks yet</p>
+</div>
+{% endif %}
 </div>
 
 </div>
