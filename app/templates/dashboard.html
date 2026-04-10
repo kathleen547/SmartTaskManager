@@ -2,7 +2,11 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-
+{% set status_map = {
+    'todo': 'Todo',
+    'in_progress': 'In Progress',
+    'done': 'Completed'
+} %}
 <div class="main">
         <div class="greeting">
             <h1>Welcome back {{ current_user.name }}</h1>
@@ -55,7 +59,7 @@
     {% if task.status == 'todo' %}badge-todo
     {% elif task.status == 'in_progress' %}badge-progress
     {% elif task.status == 'completed' %}badge-completed
-    {% endif %}">{{ task.status|capitalize }}</span></td>
+    {% endif %}">{{ status_map.get(task.status, task.status) }}</span></td>
       <td><span class="badge
     {% if task.priority == 'low' %}badge-low
     {% elif task.priority == 'medium' %}badge-medium

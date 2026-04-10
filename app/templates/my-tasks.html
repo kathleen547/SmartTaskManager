@@ -2,6 +2,11 @@
 {% block title %}New Project{% endblock %}
 
 {% block content %}
+{% set status_map = {
+    'todo': 'Todo',
+    'in_progress': 'In Progress',
+    'done': 'Completed'
+} %}
 <div class="main">
  <div class="tableContent">
     <h3>Your Tasks</h3>
@@ -31,7 +36,7 @@
     {% elif task.status == 'in_progress' %}badge-progress
     {% elif task.status == 'completed' %}badge-completed
     {% endif %}">
-    {{ task.status|capitalize }}
+    {{ status_map.get(task.status, task.status) }}
 </span></td>
         <td><span class="badge
     {% if task.priority == 'low' %}badge-low
