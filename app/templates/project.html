@@ -88,7 +88,7 @@
           <td class="task-status"><span class="badge
     {% if task.status == 'todo' %}badge-todo
     {% elif task.status == 'in_progress' %}badge-progress
-    {% elif task.status == 'completed' %}badge-completed
+    {% elif task.status == 'done' %}badge-completed
     {% endif %}">
     {{ status_map.get(task.status, task.status) }}
 </span></td>
