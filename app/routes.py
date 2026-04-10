@@ -131,21 +131,21 @@ def get_content():
     """
     # Count tasks assigned to the user with 'todo' status
     tasks_todo_to_filter = db.select(Task).where(
-        Task.assigned_user_id == current_user.id and Task.priority == 'todo'
+        Task.assigned_user_id == current_user.id, Task.status == 'todo'
     )
     todo_number = db.session.scalar(
         db.select(func.count()).select_from(tasks_todo_to_filter)
     )
     # Count tasks assigned to the user with 'done' status
     tasks_completed_to_filter = db.select(Task).where(
-        Task.assigned_user_id == current_user.id and Task.priority == 'done'
+        Task.assigned_user_id == current_user.id, Task.status == 'done'
     )
     completed_number = db.session.scalar(
         db.select(func.count()).select_from(tasks_completed_to_filter)
     )
     # Count tasks not completed by today
     tasks_overdue_to_filter = db.select(Task).where(
-        Task.assigned_user_id == current_user.id and Task.due_date < date.today() and Task.priority != 'done'
+        Task.assigned_user_id == current_user.id, Task.due_date < date.today(), Task.status != 'done'
     )
     overdue_number = db.session.scalar(
         db.select(func.count()).select_from(tasks_overdue_to_filter)
@@ -162,7 +162,7 @@ def get_content():
     priority_order = case(
         ((Task.due_date < today) & (Task.status != "done"), 1),
         ((Task.due_date == today) & (Task.status != "done"), 2),
-        (Task.status == "in progress", 3),
+        (Task.status == "in_progress", 3),
         else_=4
     )
 
@@ -174,7 +174,7 @@ def get_content():
             or_(
                 ((Task.due_date < today) & (Task.status != "done")),
                 ((Task.due_date == today) & (Task.status != "done")),
-                (Task.status == "in progress")
+                (Task.status == "in_progress")
             )
         )
         .order_by(priority_order, Task.due_date.asc())
