@@ -4,6 +4,7 @@
   --stm-card-bg: #31363F;
   --stm-accent: #76ABAE;
   --stm-accent-alt: #910A67;
+  --stm-accent-shadow: #638c8f;
   --stm-text-light: #EEEEEE;
   --stm-text-shadow: #d6d6d6;
   --stm-label-muted: #31363F;
@@ -22,19 +23,19 @@ body {
 }
 
 /* Card / box containers */
-#box,
-#box1 {
+#register-box,
+#login-box{
   background-color: var(--stm-card-bg);
 }
 
-#box1 {
+#login-box {
   border-color: var(--stm-accent-alt);
 }
 
 /* Typography */
-#title1,
-#title2,
-#title3,
+#welcome-title,
+#title-text,
+#registration-form-title,
 #footer-title {
   color: var(--stm-accent);
 }
@@ -61,6 +62,18 @@ body {
   color: var(--stam-text-light);
 }
 
+#title-field,
+#description-field,
+#status-field,
+#priority-field,
+#date-field,
+#id-field,
+#title-form-control,
+#description-form-control
+{
+background-color: var(--stm-text-light);
+}
+
 /* Buttons */
 .btn-customed,
 .btn-register {
@@ -77,6 +90,78 @@ body {
   margin-top: 20px;
   height: 60px;
 }
+
+.logout-btn{
+position:absolute;
+display: inline-block;
+bottom: 40px;
+left: 30px;
+background-color: var(--stm-accent);
+color: var(--stm-bg);
+}
+
+.logout-btn:hover{
+background-color: var(--stm-text-light);
+}
+
+.create-btn{
+background-color: #EEEEEE;
+border-width: 2px solid #222831;
+}
+
+.create-btn:hover{
+background-color:#76ABAE;
+border-color: #222831;
+}
+
+.project-action-buttons{
+display: flex;
+justify-content: flex-end;
+}
+
+.btn-task-action,
+.create-project-btn{
+width: 50px;
+background-color: var(--stm-card-bg);
+color: var(--stm-text-light);
+border-color: var(--stm-accent);
+border-width: 2px;
+margin-top: 10px;
+}
+
+.btn-task-action:hover,
+.create-project-btn:hover{
+background-color: var(--stm-bg);
+color: var(--stm-text-light);
+border-color: var(--stm-accent);
+}
+
+.add-task-btn,
+.edit-project-btn{
+background-color: var(--stm-card-bg);
+color: var(--stm-text-light);
+border-color: var(--stm-accent);
+border-width: 2px;
+}
+
+.add-task-btn:hover,
+.edit-project-btn:hover{
+background-color: var(--stm-bg);
+color: var(--stm-text-light);
+border-color: var(--stm-accent);
+}
+
+.btn-submit{
+position:absolute;
+background-color: var(--stm-card-bg);
+color: var(--stm-text-light);
+margin-top: 20px;
+}
+
+.btn-submit:hover{
+background-color: var(--stm-bg);
+}
+
 
 /* Sidebar */
 .wrapper {
@@ -106,21 +191,7 @@ li {
 list-style: none;
 font-size: 20px;
 padding-top: 20px;
-            }
-
-.btn1{
-position:absolute;
-display: inline-block;
-bottom: 40px;
-left: 30px;
-background-color: var(--stm-accent);
-color: var(--stm-bg);
 }
-
-.btn1:hover{
-background-color: var(--stm-text-light);
-}
-
 
 /* Dashboard */
 
@@ -155,13 +226,14 @@ border-style: hidden;
 display: flex;
 flex-direction: column;
 background-color:var(--stm-text-light);
-box-shadow:10px 10px 5px var(--stm-bg); ;
+box-shadow:10px 10px 5px var(--stm-accent-shadow);
 height: 100px;
 width: 50px;
 border-radius: 10px;
 border-style:solid ;
 border-color:var(--stm-bg);
 color: var(--stm-card-bg);
+font-size: 18px;
 padding: 15px;
 padding-top: 0px;
 text-align: center;
@@ -180,39 +252,10 @@ font-weight: bold;
 margin-top: 60px;
 }
 
- .btns{
-        display: flex;
-        justify-content: flex-end;
-       }
-
-       .btnA,.btnB{
-            width: 50px;
-            background-color: #EEEEEE;
-            border-color: #222831;
-            border-width: 2px;
-            margin-top: 10px;
-        }
-
-        .btnA:hover,
-        .btnB:hover{
-            background-color:#76ABAE;
-            border-color: #222831;
-        }
-
 
 /* Create Project Form */
-        .flex-container1{
-            width: 600px;
-
-        }
-        .btn2{
-position:absolute;
-background-color: var(--stm-card-bg);
-color: var(--stm-text-light);
-}
-
-.btn2:hover{
-background-color: var(--stm-bg);
+.flex-container1{
+width: 600px;
 }
 
 /* Project View */
@@ -241,18 +284,10 @@ justify-content:flex-end;
 background-color:var(--stm-accent);
 }
 
-.add-task-btn{
-background-color: var(--stm-text-light);
-border-color: var(--stm-card-bg);
-}
-
-.edit-project-btn{
-background-color: var(--stm-text-light);
-border-color: var(--stm-card-bg);
-}
 
 .specific-number{
 font-size: 35px;
+font-weight: bold;
 }
 
 .summary-cards-row{
@@ -266,6 +301,7 @@ gap: 10px;
 width: 200px;
 height: 100px;
 background-color:var(--stm-text-light);
+box-shadow:5px 5px 2.5px var(--stm-accent-shadow);
 border-radius: 10px;
 border-style:solid;
 border-color:var(--stm-bg);
@@ -277,23 +313,27 @@ text-align: center;
 margin-bottom: 25px;
 }
 
-#summary1, #first{
+.summary-card:hover{
+background-color: var(--stm-text-shadow);
+}
+
+#all-tasks-summary, #first-summary{
 border-left: 20px solid #003399;
 }
 
-#summary2, #second{
+#todo-summary, #second-summary{
 border-left: 20px solid gray;
 }
 
-#summary3{
+#progress-summary{
 border-left: 20px solid orange;
 }
 
-#summary4, #third{
+#done-summary, #third-summary{
 border-left: 20px solid green;
 }
 
-#summary5, #last{
+#overdue-summary, #last-summary{
 border-left: 20px solid red;
 }
 
@@ -358,13 +398,14 @@ justify-content: flex-end;
 
 .show {display:block;}
 
-
+/* Tables */
+.today-task-table,
 #project-table{
 width: 100%;
 margin-top: 10px;
 }
 
-
+#current-task-table tr.header,
 #project-table tr.header{
 background-color: var(--stm-text-light);
 color: var(--stm-bg);
@@ -372,6 +413,7 @@ height: 50px;
 font-size: 14px;
 }
 
+.current-task-table tr,
 #project-table tr{
 background-color: var(--stm-text-light);
 height: 40px;
@@ -385,18 +427,7 @@ padding: 20px;
 color: var(--stm-card-bg);
 }
 
-#title-field,
-#description-field,
-#status-field,
-#priority-field,
-#date-field,
-#id-field,
-#title-form-control,
-#description-form-control
-{
-background-color: var(--stm-text-light);
-}
-
+/* Badges */
 .badge {
     padding: 4px 10px;
     border-radius: 999px;
@@ -435,6 +466,7 @@ background-color: var(--stm-text-light);
     color: #991b1b;
 }
 
+/* Task and Project Icons */
 .task-actions a, .project-actions a {
     text-decoration: none;
     color: inherit;
@@ -458,6 +490,7 @@ background-color: var(--stm-text-light);
     transform: scale(1.1);
 }
 
+/* Empty States */
 .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -475,12 +508,4 @@ background-color: var(--stm-text-light);
     margin-bottom: 16px;
 }
 
-.create-btn{
-background-color: #EEEEEE;
-border-width: 2px solid #222831;
-}
 
-.create-btn:hover{
-background-color:#76ABAE;
-border-color: #222831;
-}
