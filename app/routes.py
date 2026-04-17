@@ -336,6 +336,7 @@ def edit_project(project_id):
         'make-project.html',
         form=edit_form,
         is_Edit=True,
+        project_id=project_id,
         current_user=current_user
     )
 

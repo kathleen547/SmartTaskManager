@@ -6,10 +6,11 @@
         <div class="flex-container1">
             {% if is_Edit: %}
             <h1>Edit project</h1>
+            <form class="box" action="{{ url_for('main.edit_project', project_id=project_id) }}" method="POST">
             {% else: %}
             <h1>New project</h1>
+                <form class="box" action="{{ url_for('main.add_new_project') }}" method="POST">
             {% endif %}
-        <form class="box" action="{{ url_for('main.add_new_project') }}" method="POST">
             {{ form.hidden_tag() }}
  <div class="mb-3">
      {{ form.title.label(class="form-label") }}
