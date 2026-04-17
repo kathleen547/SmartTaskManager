@@ -288,7 +288,7 @@ def show_project(project_id):
         .select_from(Task)
         .where(
             Task.project_id == project_id,
-            Task.due_date > date.today(),
+            Task.due_date < date.today(),
             Task.status != "done"
         )
     )
