@@ -130,6 +130,8 @@ def get_content():
       4. Everything else
     """
     # Count tasks assigned to the user with 'todo' status
+    today = date.today()
+
     tasks_todo_to_filter = db.select(Task).where(
         Task.assigned_user_id == current_user.id, Task.status == 'todo'
     )
@@ -145,7 +147,7 @@ def get_content():
     )
     # Count tasks not completed by today
     tasks_overdue_to_filter = db.select(Task).where(
-        Task.assigned_user_id == current_user.id, Task.due_date < date.today(), Task.status != 'done'
+        Task.assigned_user_id == current_user.id, Task.due_date < today, Task.status != 'done'
     )
     overdue_number = db.session.scalar(
         db.select(func.count()).select_from(tasks_overdue_to_filter)
@@ -155,8 +157,6 @@ def get_content():
     project_number = db.session.scalar(
         db.select(func.count()).select_from(to_filter)
     )
-
-    today = date.today()
 
     # Define custom ordering: overdue → due today → in progress → rest
     priority_order = case(

@@ -6,6 +6,7 @@ All forms use Flask-WTF for CSRF protection.
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField
 from wtforms.validators import DataRequired
+from wtforms.fields import DateField
 
 
 class RegisterForm(FlaskForm):
@@ -58,7 +59,7 @@ class CreateTask(FlaskForm):
         description (str):  Task details.
         status      (str):  Current state — choices: todo, in_progress, done.
         priority    (str):  Urgency level — choices: low, medium, high.
-        due_date    (str):  Target completion date (e.g. YYYY-MM-DD).
+        due_date    (date):  Target completion date.
         project_id  (int):  ID of the project this task belongs to.
                             Populated dynamically in routes before rendering.
     """
@@ -79,7 +80,7 @@ class CreateTask(FlaskForm):
         validators=[DataRequired()]
     )
 
-    due_date = StringField(label="Date", validators=[DataRequired()])
+    due_date = DateField(label="Due Date", format="%Y-%m-%d", validators=[DataRequired()])
 
     # Choices populated dynamically in the route based on current user's projects
     project_id = SelectField(label="Project", choices=[], coerce=int, validators=[DataRequired()])

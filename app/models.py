@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text
 from flask_login import UserMixin
 from .extensions import db, login_manager
+from datetime import date
 
 
 class User(UserMixin, db.Model):
@@ -98,7 +99,7 @@ class Task(db.Model):
     description: Mapped[str] = mapped_column(String(500), nullable=False)
     status: Mapped[str] = mapped_column(String(100), nullable=False, default='todo')  # Default: todo
     priority: Mapped[str] = mapped_column(String(100), nullable=False, default='medium')  # Default: medium
-    due_date: Mapped[str] = mapped_column(String(250), nullable=False)
+    due_date: Mapped[date] = mapped_column(db.Date, nullable=False)
 
     # Foreign key linking task to its parent project (required)
     project_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("projects.id"), nullable=False)
