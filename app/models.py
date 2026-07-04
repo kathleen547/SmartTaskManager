@@ -56,7 +56,7 @@ class Project(db.Model):
     __tablename__ = "projects"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)  # Project titles must be unique
+    title: Mapped[str] = mapped_column(String(250), nullable=False)
     description: Mapped[str] = mapped_column(String(500), nullable=False)
 
     # Foreign key linking project to its owning user

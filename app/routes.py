@@ -209,14 +209,22 @@ def add_new_project():
     new_id = current_user.id  # Associate project with the current user
 
     if form.validate_on_submit():
-        new_project = Project(
-            title=form.title.data,
-            description=form.description.data,
-            owner_id=new_id
-        )
-        db.session.add(new_project)
-        db.session.commit()
-        return redirect(url_for('main.get_all_projects'))
+        searched = form.title.data
+        exists = (db.session.query(Project)
+                  .where(Project.owner_id == new_id, Project.title == searched)
+                  .first()
+                  )
+        if exists is None:
+            new_project = Project(
+                title=form.title.data,
+                description=form.description.data,
+                owner_id=new_id
+            )
+            db.session.add(new_project)
+            db.session.commit()
+            return redirect(url_for('main.get_all_projects'))
+        else:
+            flash(message="You have already created project with this title. Try another title.")
 
     return render_template("make-project.html", form=form, current_user=current_user)
 
