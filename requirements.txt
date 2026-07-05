@@ -7,3 +7,5 @@ WTForms==3.0.1
 Werkzeug==3.0.0
 Bootstrap_Flask==2.2.0
 gunicorn==21.2.0
+python-dotenv~=1.2.1
+flask-bootstrap~=3.3.7.1
